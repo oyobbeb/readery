@@ -1,0 +1,602 @@
+{
+ "d344b714c6": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "e3613e1923": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "908a68ab3a": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "8f07476020": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "0981662272": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "0d0909702e": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "d3361d5d90": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "ea087dc948": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "68dcfd3c61": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "384eaa4770": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "8b5e514c01": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "b1894102f7": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "cdb477377b": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "550b2855a8": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "db52b8e28d": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "8ef388fab7": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "f77d182c06": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "8b69bfcc89": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "f1d7c2ca7a": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "f71beb8d8e": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "41ede6969a": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "398e875ef9": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "3c29d7aa4e": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "4593028f07": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "ad798a0502": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "489af58e3d": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "7a6e8b4d08": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "593ed327a7": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "de2e293c24": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "87e5be9521": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "d1cf399592": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "8ee2d19ed1": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "280fb5db61": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "17eb8b7818": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "be1abfb948": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "64bb0df64d": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "015dbc4f82": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "2faaa8dfb4": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "06dddbfa99": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "dbf925cd9d": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "84c21e2171": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "6a1376019d": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "f17b71af29": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "b6ad19eb6a": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "6b0f29268c": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "e776faaec9": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "a03ef1d13e": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "2035eb205a": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "229d0efd91": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "ae5ccaf72e": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "5a0ebc5d44": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "3e18648d9f": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "c01d834187": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "3d17012b42": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "0e421dcd18": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "963a2e7334": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "98fdf8f4a5": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "59ce96d4c9": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "e60bb4bb5f": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "514c61e2ad": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "eb74c8703d": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "42e87daf0e": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "1bb821026b": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "6ae8341432": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "90499a051c": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "ce46c6f519": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "6aed061464": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "ffa2684e08": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "83e4a4662a": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "840ac1aa7f": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "9b139340bd": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "2d7b913ec7": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "791494e06e": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "5ba9101326": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "daae4312fd": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "943e5c46c9": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "2019d798fd": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "52fa859abf": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "c600ff57b9": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "5dc2d1c075": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "146421da20": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "dce74d6d29": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "b9cb864cf3": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "8a6cd4cf57": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "1173a90297": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "93e19a0600": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "b00396da22": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "8695479bce": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "8d3737cfb8": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "de5be03663": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "47cc07227c": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "c869d5d64b": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "9afbbfda03": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "679ab82589": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "f9bfaf173e": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ },
+ "842850a1d8": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "f826fd2148": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "630539e1f9": {
+  "label": "maybe",
+  "blind": "maybe",
+  "junk": false,
+  "by": "claude"
+ },
+ "88401d5442": {
+  "label": "yes",
+  "blind": "yes",
+  "junk": false,
+  "by": "claude"
+ },
+ "87fb43b63a": {
+  "label": "no",
+  "blind": "no",
+  "junk": false,
+  "by": "claude"
+ }
+}

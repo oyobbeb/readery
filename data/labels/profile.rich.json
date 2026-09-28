@@ -1,0 +1,111 @@
+{
+  "note": "2026-09-28: interests replaced with the user's own list (frontend, backend, system design, web, open source). Pilot labels in pilot-labels.json are Claude's proxy labels from that list (the user delegated labeling). English lines are what Jev reads.",
+  "interests": [
+    {
+      "ko": "프론트엔드 — UI 프레임워크(React·Next.js·Solid·Qwik·Astro 등), 브라우저, CSS, 렌더링과 웹 성능, JS·TS 도구",
+      "en": "Frontend development: UI frameworks such as React, Next.js, Solid, Qwik, and Astro, browsers, CSS, rendering and web performance, and JavaScript or TypeScript tooling."
+    },
+    {
+      "ko": "백엔드 — 서버와 API, 데이터베이스, 캐시·큐, 데이터 파이프라인, 인프라·배포·CI, Go·Rust·TypeScript 서버 개발",
+      "en": "Backend development: servers and APIs, databases, caches and queues, data pipelines, infrastructure, deployment and CI, and server-side Go, Rust, or TypeScript."
+    },
+    {
+      "ko": "시스템 디자인 — 아키텍처, 확장성·안정성, 장애 회고, 실제 서비스가 어떻게 설계·운영되는지",
+      "en": "System design: software architecture, scalability and reliability, incident postmortems, and how real services are designed and operated."
+    },
+    {
+      "ko": "웹 — 웹 표준과 브라우저 동작, HTTP와 네트워킹, 웹 보안, 웹사이트 만들기와 셀프 호스팅",
+      "en": "The web: web standards and how browsers work, HTTP and networking, web security, and building or self-hosting websites."
+    },
+    {
+      "ko": "오픈소스 — 오픈소스 프로젝트와 릴리스, 메인테이너·라이선스·공급망 보안 같은 생태계 이야기",
+      "en": "Open source: open-source projects and releases, and the open-source ecosystem, such as maintainers, licenses, and supply-chain security."
+    }
+  ],
+  "notInterested": [
+    {
+      "ko": "암호화폐 시세·투자",
+      "en": "Cryptocurrency prices and investing."
+    },
+    {
+      "ko": "정치·연예 뉴스",
+      "en": "Politics and celebrity news."
+    }
+  ],
+  "keywords": [
+    "frontend",
+    "front-end",
+    "react",
+    "next.js",
+    "nextjs",
+    "solid",
+    "solidjs",
+    "qwik",
+    "astro",
+    "vite",
+    "svelte",
+    "vue",
+    "css",
+    "browser",
+    "javascript",
+    "typescript",
+    "node.js",
+    "nodejs",
+    "deno",
+    "bun",
+    "wasm",
+    "webassembly",
+    "backend",
+    "back-end",
+    "server",
+    "api",
+    "database",
+    "postgres",
+    "postgresql",
+    "mysql",
+    "sqlite",
+    "redis",
+    "kafka",
+    "queue",
+    "cache",
+    "kubernetes",
+    "k8s",
+    "docker",
+    "infrastructure",
+    "ci",
+    "deploy",
+    "golang",
+    "go 1.",
+    "rust",
+    "architecture",
+    "system design",
+    "scalability",
+    "distributed",
+    "microservice",
+    "postmortem",
+    "incident",
+    "http",
+    "web",
+    "website",
+    "self-host",
+    "self-hosting",
+    "open source",
+    "open-source",
+    "oss",
+    "github",
+    "git",
+    "프론트엔드",
+    "백엔드",
+    "서버",
+    "데이터베이스",
+    "아키텍처",
+    "설계",
+    "인프라",
+    "배포",
+    "웹",
+    "브라우저",
+    "오픈소스",
+    "대규모",
+    "트래픽"
+  ]
+}

@@ -1,0 +1,466 @@
+{
+ "model": "jev-1.13.0",
+ "thresholds": {
+  "junk": 0.7,
+  "avoid": 0.7,
+  "pass": 0.65,
+  "drop": 0.35
+ },
+ "labeled": 100,
+ "en-full.ko.S": {
+  "n": 46,
+  "positives": 17,
+  "negatives": 20,
+  "auc": 0.9823529411764705,
+  "decidedAccuracy": 0.9142857142857143,
+  "maybeRate": 0.05405405405405406,
+  "recall": 1,
+  "falsePass": 0.15,
+  "reliability": [
+   {
+    "lo": 0,
+    "n": 14,
+    "yes": 0
+   },
+   {
+    "lo": 0.2,
+    "n": 1,
+    "yes": 0
+   },
+   {
+    "lo": 0.4,
+    "n": 2,
+    "yes": 0
+   },
+   {
+    "lo": 0.6,
+    "n": 3,
+    "yes": 2
+   },
+   {
+    "lo": 0.8,
+    "n": 17,
+    "yes": 15
+   }
+  ],
+  "monotone": true
+ },
+ "en-full.ko.N": {
+  "n": 46,
+  "positives": 17,
+  "negatives": 20,
+  "auc": 0.9485294117647058,
+  "decidedAccuracy": 0.90625,
+  "maybeRate": 0.13513513513513514,
+  "recall": 1,
+  "falsePass": 0.15,
+  "reliability": [
+   {
+    "lo": 0,
+    "n": 7,
+    "yes": 0
+   },
+   {
+    "lo": 0.2,
+    "n": 6,
+    "yes": 0
+   },
+   {
+    "lo": 0.4,
+    "n": 3,
+    "yes": 0
+   },
+   {
+    "lo": 0.6,
+    "n": 12,
+    "yes": 9
+   },
+   {
+    "lo": 0.8,
+    "n": 9,
+    "yes": 8
+   }
+  ],
+  "monotone": true
+ },
+ "en-full.en.S": {
+  "n": 54,
+  "positives": 8,
+  "negatives": 34,
+  "auc": 1,
+  "decidedAccuracy": 1,
+  "maybeRate": 0.09523809523809523,
+  "recall": 1,
+  "falsePass": 0,
+  "reliability": [
+   {
+    "lo": 0,
+    "n": 25,
+    "yes": 0
+   },
+   {
+    "lo": 0.2,
+    "n": 6,
+    "yes": 0
+   },
+   {
+    "lo": 0.4,
+    "n": 3,
+    "yes": 0
+   },
+   {
+    "lo": 0.6,
+    "n": 2,
+    "yes": 2
+   },
+   {
+    "lo": 0.8,
+    "n": 6,
+    "yes": 6
+   }
+  ],
+  "monotone": true
+ },
+ "en-full.en.N": {
+  "n": 54,
+  "positives": 8,
+  "negatives": 34,
+  "auc": 0.9264705882352942,
+  "decidedAccuracy": 0.9444444444444444,
+  "maybeRate": 0.14285714285714285,
+  "recall": 0.75,
+  "falsePass": 0.029411764705882353,
+  "reliability": [
+   {
+    "lo": 0,
+    "n": 21,
+    "yes": 1
+   },
+   {
+    "lo": 0.2,
+    "n": 9,
+    "yes": 0
+   },
+   {
+    "lo": 0.4,
+    "n": 5,
+    "yes": 1
+   },
+   {
+    "lo": 0.6,
+    "n": 3,
+    "yes": 2
+   },
+   {
+    "lo": 0.8,
+    "n": 4,
+    "yes": 4
+   }
+  ],
+  "monotone": true
+ },
+ "ko-full.ko.S": {
+  "n": 46,
+  "positives": 17,
+  "negatives": 20,
+  "auc": 0.9823529411764705,
+  "decidedAccuracy": 0.9117647058823529,
+  "maybeRate": 0.08108108108108109,
+  "recall": 0.9411764705882353,
+  "falsePass": 0.15,
+  "reliability": [
+   {
+    "lo": 0,
+    "n": 14,
+    "yes": 0
+   },
+   {
+    "lo": 0.2,
+    "n": 1,
+    "yes": 0
+   },
+   {
+    "lo": 0.4,
+    "n": 3,
+    "yes": 1
+   },
+   {
+    "lo": 0.6,
+    "n": 3,
+    "yes": 1
+   },
+   {
+    "lo": 0.8,
+    "n": 16,
+    "yes": 15
+   }
+  ],
+  "monotone": true
+ },
+ "ko-full.ko.N": {
+  "n": 46,
+  "positives": 17,
+  "negatives": 20,
+  "auc": 0.9558823529411765,
+  "decidedAccuracy": 0.9285714285714286,
+  "maybeRate": 0.24324324324324326,
+  "recall": 0.7647058823529411,
+  "falsePass": 0.1,
+  "reliability": [
+   {
+    "lo": 0,
+    "n": 7,
+    "yes": 0
+   },
+   {
+    "lo": 0.2,
+    "n": 6,
+    "yes": 0
+   },
+   {
+    "lo": 0.4,
+    "n": 7,
+    "yes": 2
+   },
+   {
+    "lo": 0.6,
+    "n": 9,
+    "yes": 8
+   },
+   {
+    "lo": 0.8,
+    "n": 9,
+    "yes": 8
+   }
+  ],
+  "monotone": true
+ },
+ "ko-full.en.S": {
+  "n": 54,
+  "positives": 8,
+  "negatives": 34,
+  "auc": 0.9889705882352942,
+  "decidedAccuracy": 0.9743589743589743,
+  "maybeRate": 0.07142857142857142,
+  "recall": 0.75,
+  "falsePass": 0,
+  "reliability": [
+   {
+    "lo": 0,
+    "n": 30,
+    "yes": 0
+   },
+   {
+    "lo": 0.2,
+    "n": 3,
+    "yes": 1
+   },
+   {
+    "lo": 0.4,
+    "n": 2,
+    "yes": 0
+   },
+   {
+    "lo": 0.6,
+    "n": 3,
+    "yes": 3
+   },
+   {
+    "lo": 0.8,
+    "n": 4,
+    "yes": 4
+   }
+  ],
+  "monotone": true
+ },
+ "ko-full.en.N": {
+  "n": 54,
+  "positives": 8,
+  "negatives": 34,
+  "auc": 0.9172794117647058,
+  "decidedAccuracy": 0.9705882352941176,
+  "maybeRate": 0.19047619047619047,
+  "recall": 0.625,
+  "falsePass": 0,
+  "reliability": [
+   {
+    "lo": 0,
+    "n": 20,
+    "yes": 1
+   },
+   {
+    "lo": 0.2,
+    "n": 10,
+    "yes": 0
+   },
+   {
+    "lo": 0.4,
+    "n": 7,
+    "yes": 2
+   },
+   {
+    "lo": 0.6,
+    "n": 1,
+    "yes": 1
+   },
+   {
+    "lo": 0.8,
+    "n": 4,
+    "yes": 4
+   }
+  ],
+  "monotone": true
+ },
+ "en-title.ko.S": {
+  "n": 46,
+  "positives": 17,
+  "negatives": 20,
+  "auc": 1,
+  "decidedAccuracy": 0.9714285714285714,
+  "maybeRate": 0.05405405405405406,
+  "recall": 1,
+  "falsePass": 0.05,
+  "reliability": [
+   {
+    "lo": 0,
+    "n": 14,
+    "yes": 0
+   },
+   {
+    "lo": 0.2,
+    "n": 3,
+    "yes": 0
+   },
+   {
+    "lo": 0.4,
+    "n": 2,
+    "yes": 0
+   },
+   {
+    "lo": 0.6,
+    "n": 4,
+    "yes": 3
+   },
+   {
+    "lo": 0.8,
+    "n": 14,
+    "yes": 14
+   }
+  ],
+  "monotone": true
+ },
+ "en-title.ko.N": {
+  "n": 46,
+  "positives": 17,
+  "negatives": 20,
+  "auc": 0.9764705882352941,
+  "decidedAccuracy": 0.967741935483871,
+  "maybeRate": 0.16216216216216217,
+  "recall": 0.8235294117647058,
+  "falsePass": 0.05,
+  "reliability": [
+   {
+    "lo": 0,
+    "n": 10,
+    "yes": 0
+   },
+   {
+    "lo": 0.2,
+    "n": 6,
+    "yes": 0
+   },
+   {
+    "lo": 0.4,
+    "n": 4,
+    "yes": 1
+   },
+   {
+    "lo": 0.6,
+    "n": 7,
+    "yes": 6
+   },
+   {
+    "lo": 0.8,
+    "n": 10,
+    "yes": 10
+   }
+  ],
+  "monotone": true
+ },
+ "en-title.en.S": {
+  "n": 54,
+  "positives": 8,
+  "negatives": 34,
+  "auc": 1,
+  "decidedAccuracy": 1,
+  "maybeRate": 0.19047619047619047,
+  "recall": 0.875,
+  "falsePass": 0,
+  "reliability": [
+   {
+    "lo": 0,
+    "n": 25,
+    "yes": 0
+   },
+   {
+    "lo": 0.2,
+    "n": 5,
+    "yes": 0
+   },
+   {
+    "lo": 0.4,
+    "n": 4,
+    "yes": 0
+   },
+   {
+    "lo": 0.6,
+    "n": 3,
+    "yes": 2
+   },
+   {
+    "lo": 0.8,
+    "n": 6,
+    "yes": 6
+   }
+  ],
+  "monotone": true
+ },
+ "en-title.en.N": {
+  "n": 54,
+  "positives": 8,
+  "negatives": 34,
+  "auc": 0.9007352941176471,
+  "decidedAccuracy": 0.9375,
+  "maybeRate": 0.23809523809523808,
+  "recall": 0.5,
+  "falsePass": 0.029411764705882353,
+  "reliability": [
+   {
+    "lo": 0,
+    "n": 19,
+    "yes": 1
+   },
+   {
+    "lo": 0.2,
+    "n": 10,
+    "yes": 0
+   },
+   {
+    "lo": 0.4,
+    "n": 7,
+    "yes": 3
+   },
+   {
+    "lo": 0.6,
+    "n": 4,
+    "yes": 2
+   },
+   {
+    "lo": 0.8,
+    "n": 2,
+    "yes": 2
+   }
+  ],
+  "monotone": false
+ }
+}

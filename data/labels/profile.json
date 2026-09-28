@@ -1,0 +1,111 @@
+{
+  "note": "2026-09-28: interests are the user's own list, word for word (frontend, backend, system design, web, open source). Pilot labels in pilot-labels.json are Claude's proxy labels from that list (the user delegated labeling). English lines are what Jev reads.",
+  "interests": [
+    {
+      "ko": "프론트엔드",
+      "en": "Frontend development."
+    },
+    {
+      "ko": "백엔드",
+      "en": "Backend development."
+    },
+    {
+      "ko": "시스템 디자인",
+      "en": "System design."
+    },
+    {
+      "ko": "웹",
+      "en": "The web."
+    },
+    {
+      "ko": "오픈소스",
+      "en": "Open source."
+    }
+  ],
+  "notInterested": [
+    {
+      "ko": "암호화폐 시세·투자",
+      "en": "Cryptocurrency prices and investing."
+    },
+    {
+      "ko": "정치·연예 뉴스",
+      "en": "Politics and celebrity news."
+    }
+  ],
+  "keywords": [
+    "frontend",
+    "front-end",
+    "react",
+    "next.js",
+    "nextjs",
+    "solid",
+    "solidjs",
+    "qwik",
+    "astro",
+    "vite",
+    "svelte",
+    "vue",
+    "css",
+    "browser",
+    "javascript",
+    "typescript",
+    "node.js",
+    "nodejs",
+    "deno",
+    "bun",
+    "wasm",
+    "webassembly",
+    "backend",
+    "back-end",
+    "server",
+    "api",
+    "database",
+    "postgres",
+    "postgresql",
+    "mysql",
+    "sqlite",
+    "redis",
+    "kafka",
+    "queue",
+    "cache",
+    "kubernetes",
+    "k8s",
+    "docker",
+    "infrastructure",
+    "ci",
+    "deploy",
+    "golang",
+    "go 1.",
+    "rust",
+    "architecture",
+    "system design",
+    "scalability",
+    "distributed",
+    "microservice",
+    "postmortem",
+    "incident",
+    "http",
+    "web",
+    "website",
+    "self-host",
+    "self-hosting",
+    "open source",
+    "open-source",
+    "oss",
+    "github",
+    "git",
+    "프론트엔드",
+    "백엔드",
+    "서버",
+    "데이터베이스",
+    "아키텍처",
+    "설계",
+    "인프라",
+    "배포",
+    "웹",
+    "브라우저",
+    "오픈소스",
+    "대규모",
+    "트래픽"
+  ]
+}
