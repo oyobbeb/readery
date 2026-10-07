@@ -1,7 +1,8 @@
 import { TypeSafeClient, type EntryType, type Questions } from "@typesafe-ai/sdk";
 
 // Pinned, not "jev-latest": thresholds are tuned against this exact version and aliases move without notice.
-export const JEV_MODEL = "jev-1.13.0";
+// TYPESAFE_MODEL (with TYPESAFE_BASE_URL) lets the pilot ask another Jev-compatible server, such as laya-serve.
+export const JEV_MODEL = process.env.TYPESAFE_MODEL ?? "jev-1.13.0";
 
 const client = new TypeSafeClient({ defaultModel: JEV_MODEL, timeout: 5_000, retry: { maxRetries: 1 } });
 

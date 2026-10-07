@@ -8,6 +8,10 @@ import { judge, JEV_MODEL } from "./lib/llm/typesafe.ts";
 import { filterQuestions, itemState, keywordHit, route, THRESHOLDS, type FeedItem, type Lang, type Profile, type Route } from "./lib/llm/judgments.ts";
 
 const DIR = "data/labels";
+// PILOT_TAG scores another Jev-compatible model (see typesafe.ts) into its own runs and report, leaving Jev's untouched.
+const TAG = process.env.PILOT_TAG;
+const RUNS = TAG ? `${DIR}/runs-${TAG}` : `${DIR}/runs`;
+const OUT = TAG ? `${DIR}/pilot-report-${TAG}` : `${DIR}/pilot-report`;
 type Item = FeedItem & { lang: Lang; keywordHit: boolean };
 // `blind` is the first label, committed before the page revealed Jev's prediction; that is what we score.
 type Label = { label: "yes" | "maybe" | "no" | null; blind?: "yes" | "maybe" | "no"; junk?: boolean };
@@ -40,7 +44,7 @@ async function pool<T, R>(xs: T[], n: number, fn: (x: T) => Promise<R>) {
 async function runVariant(v: Variant, repeat: number): Promise<Run> {
   const questions = filterQuestions(profile, v.lang);
   const hash = createHash("sha1").update(JSON.stringify({ CACHE_FORMAT, questions, model: JEV_MODEL, description: v.description })).digest("hex").slice(0, 10);
-  const file = `${DIR}/runs/${v.id}-r${repeat}.json`;
+  const file = `${RUNS}/${v.id}-r${repeat}.json`;
   const cached: Run | null = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : null;
   if (cached?.hash === hash && items.every((i) => i.id in cached.results && !("error" in cached.results[i.id]))) return cached;
 
@@ -61,7 +65,7 @@ async function runVariant(v: Variant, repeat: number): Promise<Run> {
     }),
   );
   const run = { hash, model, results };
-  mkdirSync(`${DIR}/runs`, { recursive: true });
+  mkdirSync(RUNS, { recursive: true });
   writeFileSync(file, JSON.stringify(run, null, 1));
   return run;
 }
@@ -184,9 +188,9 @@ const preds = Object.fromEntries(
     return [i.id, { n, s: relOf(a, "S"), route: routeOf(a, "N"), why, top: Number(topKey.split("_")[1]), junk: a.nouls.junk, avoid }];
   }),
 );
-writeFileSync(`${DIR}/pilot-preds.json`, JSON.stringify(preds, null, 1));
+if (!TAG) writeFileSync(`${DIR}/pilot-preds.json`, JSON.stringify(preds, null, 1));
 
 const text = lines.join("\n");
 console.log(text);
-writeFileSync(`${DIR}/pilot-report.json`, JSON.stringify(report, null, 1));
-writeFileSync(`${DIR}/pilot-report.txt`, `${text}\n`);
+writeFileSync(`${OUT}.json`, JSON.stringify(report, null, 1));
+writeFileSync(`${OUT}.txt`, `${text}\n`);

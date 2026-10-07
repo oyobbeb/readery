@@ -1,0 +1,39 @@
+model laya-rl-agent · thresholds {"junk":0.7,"avoid":0.7,"pass":0.65,"drop":0.35} · labels 100
+
+## en-full  (errors 0)
+  ko: tokens mean 4376 · latency p50 1570ms p95 2452ms
+      route S: pass 0 / maybe 24 / drop 22   |   route N: pass 2 / maybe 44 / drop 0
+      S: AUC 0.56 · decided acc 50% · maybe 57% · recall 0% · false pass 0% · monotone true · (+17/-20)
+      N: AUC 0.50 · decided acc 50% · maybe 95% · recall 6% · false pass 5% · monotone false · (+17/-20)
+      keyword baseline acc 76%
+  en: tokens mean 1560 · latency p50 1077ms p95 1864ms
+      route S: pass 1 / maybe 35 / drop 18   |   route N: pass 0 / maybe 53 / drop 1
+      S: AUC 0.59 · decided acc 100% · maybe 69% · recall 0% · false pass 0% · monotone false · (+8/-34)
+      N: AUC 0.68 · decided acc 100% · maybe 98% · recall 0% · false pass 0% · monotone true · (+8/-34)
+      keyword baseline acc 95%
+
+## ko-full  (errors 0)
+  ko: tokens mean 4490 · latency p50 1703ms p95 2564ms
+      route S: pass 0 / maybe 29 / drop 17   |   route N: pass 2 / maybe 44 / drop 0
+      S: AUC 0.59 · decided acc 58% · maybe 68% · recall 0% · false pass 0% · monotone true · (+17/-20)
+      N: AUC 0.47 · decided acc 50% · maybe 95% · recall 6% · false pass 5% · monotone false · (+17/-20)
+  en: tokens mean 1682 · latency p50 1259ms p95 1841ms
+      route S: pass 1 / maybe 37 / drop 16   |   route N: pass 0 / maybe 51 / drop 3
+      S: AUC 0.53 · decided acc 92% · maybe 69% · recall 0% · false pass 0% · monotone true · (+8/-34)
+      N: AUC 0.56 · decided acc 100% · maybe 93% · recall 0% · false pass 0% · monotone true · (+8/-34)
+
+## en-title  (errors 0)
+  ko: tokens mean 1604 · latency p50 864ms p95 936ms
+      route S: pass 0 / maybe 29 / drop 17   |   route N: pass 2 / maybe 44 / drop 0
+      S: AUC 0.53 · decided acc 62% · maybe 65% · recall 0% · false pass 0% · monotone false · (+17/-20)
+      N: AUC 0.50 · decided acc 50% · maybe 95% · recall 6% · false pass 5% · monotone false · (+17/-20)
+  en: tokens mean 1319 · latency p50 827ms p95 880ms
+      route S: pass 1 / maybe 25 / drop 28   |   route N: pass 0 / maybe 52 / drop 2
+      S: AUC 0.75 · decided acc 95% · maybe 48% · recall 0% · false pass 0% · monotone true · (+8/-34)
+      N: AUC 0.61 · decided acc 100% · maybe 95% · recall 0% · false pass 0% · monotone true · (+8/-34)
+
+## stability (en-full × 3)
+  S: mean |max-min| 0.00 · items whose route flipped 0/100
+  N: mean |max-min| 0.00 · items whose route flipped 0/100
+
+## junk (en-full): flagged 0 · labeled junk 0 · both 0

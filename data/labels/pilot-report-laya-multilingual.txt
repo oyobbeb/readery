@@ -1,0 +1,39 @@
+model laya-rl-agent · thresholds {"junk":0.7,"avoid":0.7,"pass":0.65,"drop":0.35} · labels 100
+
+## en-full  (errors 0)
+  ko: tokens mean 2637 · latency p50 501ms p95 719ms
+      route S: pass 1 / maybe 5 / drop 40   |   route N: pass 3 / maybe 3 / drop 40
+      S: AUC 0.72 · decided acc 59% · maybe 8% · recall 6% · false pass 0% · monotone true · (+17/-20)
+      N: AUC 0.50 · decided acc 61% · maybe 3% · recall 18% · false pass 0% · monotone false · (+17/-20)
+      keyword baseline acc 76%
+  en: tokens mean 1511 · latency p50 425ms p95 613ms
+      route S: pass 0 / maybe 5 / drop 49   |   route N: pass 3 / maybe 5 / drop 46
+      S: AUC 0.48 · decided acc 82% · maybe 10% · recall 0% · false pass 0% · monotone false · (+8/-34)
+      N: AUC 0.49 · decided acc 78% · maybe 12% · recall 13% · false pass 6% · monotone true · (+8/-34)
+      keyword baseline acc 95%
+
+## ko-full  (errors 0)
+  ko: tokens mean 2661 · latency p50 527ms p95 720ms
+      route S: pass 1 / maybe 4 / drop 41   |   route N: pass 3 / maybe 2 / drop 41
+      S: AUC 0.74 · decided acc 57% · maybe 5% · recall 6% · false pass 0% · monotone true · (+17/-20)
+      N: AUC 0.48 · decided acc 60% · maybe 5% · recall 12% · false pass 0% · monotone false · (+17/-20)
+  en: tokens mean 1535 · latency p50 448ms p95 595ms
+      route S: pass 0 / maybe 2 / drop 52   |   route N: pass 1 / maybe 3 / drop 50
+      S: AUC 0.35 · decided acc 80% · maybe 5% · recall 0% · false pass 0% · monotone false · (+8/-34)
+      N: AUC 0.46 · decided acc 79% · maybe 7% · recall 0% · false pass 3% · monotone false · (+8/-34)
+
+## en-title  (errors 0)
+  ko: tokens mean 1360 · latency p50 354ms p95 366ms
+      route S: pass 0 / maybe 0 / drop 46   |   route N: pass 0 / maybe 0 / drop 46
+      S: AUC 0.59 · decided acc 54% · maybe 0% · recall 0% · false pass 0% · monotone true · (+17/-20)
+      N: AUC 0.49 · decided acc 54% · maybe 0% · recall 0% · false pass 0% · monotone true · (+17/-20)
+  en: tokens mean 1276 · latency p50 348ms p95 360ms
+      route S: pass 0 / maybe 0 / drop 54   |   route N: pass 2 / maybe 1 / drop 51
+      S: AUC 0.31 · decided acc 81% · maybe 0% · recall 0% · false pass 0% · monotone false · (+8/-34)
+      N: AUC 0.61 · decided acc 78% · maybe 2% · recall 0% · false pass 6% · monotone true · (+8/-34)
+
+## stability (en-full × 3)
+  S: mean |max-min| 0.00 · items whose route flipped 0/100
+  N: mean |max-min| 0.00 · items whose route flipped 0/100
+
+## junk (en-full): flagged 85 · labeled junk 0 · both 0
