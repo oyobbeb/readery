@@ -1,9 +1,14 @@
 // Readery settings. Scripts import these; nothing else holds them.
 import type { Profile } from "./scripts/lib/llm/judgments.ts";
 
-export type Source = { id: string; name: string } & (
+// `library` marks a tool the user works with: its items skip the interest filter.
+export type Source = { id: string; name: string; library?: string } & (
   // pathPrefix keeps only links under that path (Vercel's feed mixes its changelog into the blog).
   | { kind: "feed"; url: string; pathPrefix?: string }
+  // GitHub releases, stable x.y.0 only; `title` keeps one package of a monorepo.
+  | { kind: "release"; repo: string; title?: RegExp }
+  // A page added under `path` of a docs repo in the last week is a new API; `url` + its path is its address.
+  | { kind: "docs"; repo: string; path: string; url: string }
   | { kind: "hn" | "lobsters" | "toss" | "geeknews" }
 );
 
@@ -51,6 +56,35 @@ export const sources: Source[] = [
   { id: "github", name: "GitHub", kind: "feed", url: "https://github.blog/engineering/feed/" },
   { id: "supabase", name: "Supabase", kind: "feed", url: "https://supabase.com/rss.xml" },
   { id: "linear", name: "Linear", kind: "feed", url: "https://linear.app/rss/now.xml" },
+
+  // Tools the user works with (2026-10-07, every feed checked live). The blog where every release gets a post,
+  // GitHub releases otherwise, so one release is one item.
+  { id: "react-blog", name: "React", library: "react", kind: "feed", url: "https://react.dev/rss.xml" },
+  { id: "react-docs", name: "React", library: "react", kind: "docs", repo: "reactjs/react.dev", path: "src/content/reference", url: "https://react.dev/reference/" },
+  { id: "nextjs-blog", name: "Next.js", library: "nextjs", kind: "feed", url: "https://nextjs.org/feed.xml" },
+  // Functions, components and directives only: next.config options get new pages almost daily.
+  { id: "nextjs-functions", name: "Next.js", library: "nextjs", kind: "docs", repo: "vercel/next.js", path: "docs/01-app/03-api-reference/04-functions", url: "https://nextjs.org/docs/app/api-reference/functions/" },
+  { id: "nextjs-components", name: "Next.js", library: "nextjs", kind: "docs", repo: "vercel/next.js", path: "docs/01-app/03-api-reference/02-components", url: "https://nextjs.org/docs/app/api-reference/components/" },
+  { id: "nextjs-directives", name: "Next.js", library: "nextjs", kind: "docs", repo: "vercel/next.js", path: "docs/01-app/03-api-reference/01-directives", url: "https://nextjs.org/docs/app/api-reference/directives/" },
+  { id: "shadcn", name: "shadcn/ui", library: "shadcn", kind: "feed", url: "https://ui.shadcn.com/rss.xml" },
+  { id: "astro-blog", name: "Astro", library: "astro", kind: "feed", url: "https://astro.build/rss.xml" },
+  { id: "solid", name: "Solid", library: "solid", kind: "release", repo: "solidjs/solid", title: /^(v\d|solid-js@|@solidjs\/web@)/ },
+  { id: "qwik", name: "Qwik", library: "qwik", kind: "release", repo: "QwikDev/qwik", title: /^@qwik\.dev\/core@/ },
+  { id: "tailwind", name: "Tailwind CSS", library: "tailwind", kind: "release", repo: "tailwindlabs/tailwindcss" },
+  { id: "vite", name: "Vite", library: "vite", kind: "release", repo: "vitejs/vite" },
+  { id: "vitest", name: "Vitest", library: "vitest", kind: "release", repo: "vitest-dev/vitest" },
+  { id: "typescript-blog", name: "TypeScript", library: "typescript", kind: "feed", url: "https://devblogs.microsoft.com/typescript/feed/" },
+  { id: "node", name: "Node.js", library: "node", kind: "release", repo: "nodejs/node" },
+  { id: "bun", name: "Bun", library: "bun", kind: "release", repo: "oven-sh/bun" },
+  { id: "deno-blog", name: "Deno", library: "deno", kind: "feed", url: "https://deno.com/feed" },
+  { id: "hono", name: "Hono", library: "hono", kind: "release", repo: "honojs/hono", title: /^v\d/ },
+  { id: "redis", name: "Redis", library: "redis", kind: "release", repo: "redis/redis" }, // its blog is mostly marketing
+  { id: "drizzle", name: "Drizzle ORM", library: "drizzle", kind: "release", repo: "drizzle-team/drizzle-orm", title: /^v?\d/ },
+  { id: "zod", name: "Zod", library: "zod", kind: "release", repo: "colinhacks/zod" },
+  { id: "biome", name: "Biome", library: "biome", kind: "release", repo: "biomejs/biome", title: /^Biome CLI v/ },
+  { id: "playwright", name: "Playwright", library: "playwright", kind: "release", repo: "microsoft/playwright" },
+  { id: "go-blog", name: "Go", library: "go", kind: "feed", url: "https://go.dev/blog/feed.atom" },
+  { id: "rust-blog", name: "Rust", library: "rust", kind: "feed", url: "https://blog.rust-lang.org/feed.xml" },
 ];
 
 // The interest filter judges items against the user's own five words (pilot 2026-09-28: KO 91%, EN 100%).

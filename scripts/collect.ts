@@ -15,9 +15,10 @@ export type Item = {
   site: string;
   lang: "ko" | "en";
   via: Record<string, string>; // source id → where it was seen; two or more keys = "N곳에서 화제"
+  library?: string; // a release, blog post or new API page of a tool the user works with
   publishedAt?: string;
   collectedAt: string;
-  judgment: { by: "jev" | "keyword"; route: Route; model?: string; relevance?: Record<string, number>; junk?: number };
+  judgment: { by: "jev" | "keyword" | "subscribed"; route: Route; model?: string; relevance?: Record<string, number>; junk?: number };
 };
 
 const DIR = "data/items";
@@ -48,6 +49,7 @@ const raws = results.flatMap((r) => (r.status === "fulfilled" ? r.value : []));
 for (const r of raws) if (r.source === "geeknews" && r.via && !seenVia.has(r.via)) r.url = await geekNewsTarget(r.via).catch(() => r.url);
 
 // ---------- dedupe ----------
+const libraryOf: Record<string, string | undefined> = Object.fromEntries(sources.map((s) => [s.id, s.library]));
 const now = new Date();
 const fresh: Item[] = [];
 const dirty = new Set<string>();
@@ -60,6 +62,8 @@ for (const r of raws) {
   if (old) {
     if (!old.via[r.source]) {
       old.via[r.source] = r.via ?? r.url;
+      // First seen on HN, now in a tool's own feed: it is that tool's news, whatever the filter said.
+      if (libraryOf[r.source] && !old.library) Object.assign(old, { library: libraryOf[r.source], judgment: { ...old.judgment, route: "pass" } });
       merged++;
       if (!fresh.includes(old)) dirty.add(monthOf(old));
     }
@@ -76,6 +80,7 @@ for (const r of raws) {
     site: new URL(url).hostname.replace(/^www\./, ""),
     lang: hangul(`${r.title} ${r.description ?? ""}`) >= 0.15 ? "ko" : "en",
     via: { [r.source]: r.via ?? r.url },
+    library: libraryOf[r.source],
     publishedAt: validDate ? published.toISOString() : undefined,
     collectedAt: now.toISOString(),
     judgment: { by: "keyword", route: "maybe" },
@@ -92,6 +97,10 @@ const nameOf = Object.fromEntries(sources.map((s) => [s.id, s.name]));
 const deadline = Date.now() + 60_000;
 let failures = 0;
 await pool(fresh, 3, async (it) => {
+  if (it.library) {
+    it.judgment = { by: "subscribed", route: "pass" };
+    return;
+  }
   if (process.env.TYPESAFE_API_KEY && failures < 3 && Date.now() < deadline) {
     try {
       const state = itemState({ id: it.id, title: it.title, description: it.description, source: nameOf[Object.keys(it.via)[0]], site: it.site }, true);
@@ -122,6 +131,6 @@ for (const m of dirty) writeFileSync(`${DIR}/${m}.jsonl`, `${months.get(m)!.map(
 const count = (k: Route) => fresh.filter((it) => it.judgment.route === k).length;
 console.log(
   `sources ${sources.length - failed.length}/${sources.length} · raw ${raws.length} · new ${fresh.length} · merged ${merged}` +
-    ` · jev ${fresh.filter((it) => it.judgment.by === "jev").length} · pass ${count("pass")} / maybe ${count("maybe")} / drop ${count("drop")}`,
+    ` · jev ${fresh.filter((it) => it.judgment.by === "jev").length} · library ${fresh.filter((it) => it.library).length} · pass ${count("pass")} / maybe ${count("maybe")} / drop ${count("drop")}`,
 );
 if (failed.length) console.log(`failed: ${failed.join(", ")}`);

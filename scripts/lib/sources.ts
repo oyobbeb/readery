@@ -7,11 +7,49 @@ export type Raw = { source: string; url: string; title: string; description?: st
 const UA = { "user-agent": "readery/0.1 (+https://github.com/oyobbeb/readery)" };
 const DAY = 86_400_000;
 
-export async function get(url: string, ms = 20_000) {
-  const res = await fetch(url, { headers: UA, signal: AbortSignal.timeout(ms) });
-  if (!res.ok) throw new Error(`${res.status} ${url}`);
-  return res.text();
+// At most 8 requests in flight, and one retry on a network error: 65 at once made some fail with
+// "fetch failed" on a home network. HTTP errors and timeouts are not retried.
+let inFlight = 0;
+const waiting: (() => void)[] = [];
+export async function get(url: string, ms = 20_000, headers: Record<string, string> = {}) {
+  while (inFlight >= 8) await new Promise<void>((r) => waiting.push(r));
+  inFlight++;
+  try {
+    for (let attempt = 1; ; attempt++) {
+      try {
+        const res = await fetch(url, { headers: { ...UA, ...headers }, signal: AbortSignal.timeout(ms) });
+        if (!res.ok) throw new Error(`${res.status} ${url}`);
+        return await res.text();
+      } catch (e) {
+        if (attempt >= 2 || !(e instanceof TypeError)) throw e;
+      }
+    }
+  } finally {
+    inFlight--;
+    waiting.shift()?.();
+  }
 }
+
+// GitHub's REST API: 60 requests/hour without a token, 1,000 with the Actions GITHUB_TOKEN.
+const github = async (path: string) =>
+  JSON.parse(await get(`https://api.github.com/${path}`, 20_000, process.env.GITHUB_TOKEN ? { authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}));
+
+// One lookup per commit per run: several docs sources watch folders of the same repo.
+const commits = new Map<string, Promise<any>>();
+const commitDetail = (repo: string, sha: string) => {
+  if (!commits.has(sha)) commits.set(sha, github(`repos/${repo}/commits/${sha}`));
+  return commits.get(sha)!;
+};
+
+// "x.y.0" for a stable minor or major release title, undefined for patches and pre-releases.
+export function stableVersion(title: string) {
+  if (/\b(canary|alpha|beta|rc|nightly|preview|experimental|insiders)\b/i.test(title)) return undefined;
+  const m = title.match(/(\d+)\.(\d+)(?:\.(\d+))?(?![-.\w])/);
+  return m && (m[3] ?? "0") === "0" ? `${m[1]}.${m[2]}.0` : undefined;
+}
+
+// Docs file → page path: "04-functions/after.mdx" → "functions/after".
+export const docsPage = (file: string) => file.replace(/\.mdx?$/, "").replace(/(^|\/)\d+-/g, "$1");
 
 const NAMED: Record<string, string> = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " };
 const decode = (s: string) =>
@@ -68,6 +106,29 @@ export async function fetchSource(s: Source): Promise<Raw[]> {
     }
     case "feed":
       return parseAnyFeed(await get(s.url), s.url, s.id).filter((r) => !s.pathPrefix || new URL(r.url).pathname.startsWith(s.pathPrefix));
+    case "release": {
+      const url = `https://github.com/${s.repo}/releases.atom`;
+      return parseAnyFeed(await get(url), url, s.id).flatMap((r) => {
+        const version = (!s.title || s.title.test(r.title)) && stableVersion(r.title);
+        return version ? [{ ...r, title: `${s.name} ${version}` }] : [];
+      });
+    }
+    case "docs": {
+      // Pages added under the reference path in the last two days; hourly runs overlap and dedupe keeps one item.
+      // ponytail: an outage longer than two days misses pages; widen `since` if Actions ever stalls that long.
+      const since = new Date(Date.now() - 2 * DAY).toISOString();
+      const commits: any[] = await github(`repos/${s.repo}/commits?path=${encodeURIComponent(s.path)}&since=${since}&per_page=30`);
+      const out: Raw[] = [];
+      for (const c of commits) {
+        const { files } = await commitDetail(s.repo, c.sha);
+        for (const f of files as any[]) {
+          if (f.status !== "added" || !f.filename.startsWith(`${s.path}/`) || !/\.mdx?$/.test(f.filename)) continue;
+          const page = docsPage(f.filename.slice(s.path.length + 1));
+          if (!page.endsWith("index")) out.push({ source: s.id, title: `${s.name} docs: new page ${page}`, url: s.url + page, publishedAt: c.commit.committer.date });
+        }
+      }
+      return out;
+    }
   }
 }
 
