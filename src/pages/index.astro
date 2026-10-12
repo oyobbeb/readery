@@ -1,7 +1,7 @@
 ---
 import { Font } from "astro:assets";
-import Entry from "../components/Entry.astro";
-import ToolRow from "../components/ToolRow.astro";
+import Entry from "../components/Entry.tsx";
+import ToolRow from "../components/ToolRow.tsx";
 import { loadDigest } from "../digest.ts";
 
 const { updatedAt, tools, days, dropped, interests } = loadDigest("me");

@@ -1,3 +1,4 @@
+import react from "@astrojs/react";
 import { defineConfig, fontProviders } from "astro/config";
 
 // Fonts are downloaded at build time and served from the site itself.
@@ -12,4 +13,5 @@ export default defineConfig({
     // Numbers only (dates, counts); Hangul next to them falls through to the sans.
     { provider: fontProviders.fontsource(), name: "IBM Plex Mono", cssVariable: "--font-mono", weights: [400], styles: ["normal"], fallbacks: [], optimizedFallbacks: false },
   ],
+  integrations: [react()],
 });

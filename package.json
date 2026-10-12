@@ -16,9 +16,14 @@
     "pilot:eval": "node --env-file=.env scripts/pilot/eval.ts"
   },
   "dependencies": {
+    "@astrojs/react": "7.0.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "@typesafe-ai/sdk": "0.6.0",
     "astro": "7.3.8",
     "feedsmith": "2.9.6",
-    "normalize-url": "9.0.1"
+    "normalize-url": "9.0.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   }
 }
