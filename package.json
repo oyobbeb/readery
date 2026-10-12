@@ -9,7 +9,7 @@
     "collect": "node --env-file-if-exists=.env scripts/collect.ts",
     "test": "node --test scripts/lib/*.test.ts",
     "pilot:sample": "node --env-file=.env scripts/pilot/sample.ts",
-    "pilot:eval": "node --env-file=.env scripts/judge-eval.ts"
+    "pilot:eval": "node --env-file=.env scripts/pilot/eval.ts"
   },
   "dependencies": {
     "@typesafe-ai/sdk": "0.6.0",

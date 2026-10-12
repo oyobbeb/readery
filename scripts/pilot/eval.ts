@@ -1,13 +1,13 @@
 // Runs the interest-filter questions over the pilot items and scores them against the user's labels.
 // Before labels exist it reports only operational numbers: tokens, latency, route mix, stability.
 // Raw probabilities are cached per variant, so re-routing or re-scoring never calls the API again.
-// It also writes data/labels/pilot-preds.json, the per-item prediction the labeling page reveals after a label.
+// It also writes data/pilot/pilot-preds.json, the per-item prediction the labeling page reveals after a label.
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { judge, JEV_MODEL } from "./lib/llm/typesafe.ts";
-import { filterQuestions, itemState, keywordHit, route, THRESHOLDS, type FeedItem, type Lang, type Profile, type Route } from "./lib/llm/judgments.ts";
+import { judge, JEV_MODEL } from "../lib/llm/typesafe.ts";
+import { filterQuestions, itemState, keywordHit, route, THRESHOLDS, type FeedItem, type Lang, type Profile, type Route } from "../lib/llm/judgments.ts";
 
-const DIR = "data/labels";
+const DIR = "data/pilot";
 // PILOT_TAG scores another Jev-compatible model (see typesafe.ts) into its own runs and report, leaving Jev's untouched.
 const TAG = process.env.PILOT_TAG;
 const RUNS = TAG ? `${DIR}/runs-${TAG}` : `${DIR}/runs`;

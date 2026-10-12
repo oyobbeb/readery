@@ -13,7 +13,7 @@
 | 정확도 (통과·걸러짐으로 판정한 글 기준) | 91% | 100% |
 | 놓친 관심 글 | 0 / 17 | 0 / 8 |
 
-라벨은 사용자가 맡겨 Claude가 붙인 대리 라벨이다. 전체 수치는 [`data/labels/pilot-report.txt`](data/labels/pilot-report.txt).
+라벨은 사용자가 맡겨 Claude가 붙인 대리 라벨이다. 전체 수치는 [`data/pilot/pilot-report.txt`](data/pilot/pilot-report.txt).
 
 ```bash
 npm install

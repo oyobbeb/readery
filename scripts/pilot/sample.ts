@@ -5,12 +5,12 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { keywordHit, type Profile } from "../lib/llm/judgments.ts";
 
-const OUT = "data/labels/pilot-items.json";
+const OUT = "data/pilot/pilot-items.json";
 if (existsSync(OUT) && !process.argv.includes("--force")) {
   console.error(`${OUT} exists and labels may point at it. Re-run with --force to resample.`);
   process.exit(1);
 }
-const profile: Profile = JSON.parse(readFileSync("data/labels/profile.json", "utf8"));
+const profile: Profile = JSON.parse(readFileSync("data/pilot/profile.json", "utf8"));
 
 type Raw = { source: string; title: string; url: string; description?: string; tags?: string[]; publishedAt?: string };
 type Item = Raw & { id: string; lang: "ko" | "en"; site: string; descFrom?: "feed" | "og"; keywordHit: boolean };
