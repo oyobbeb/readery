@@ -1,41 +1,15 @@
-// Hourly collector: sources → canonical items → dedupe → interest filter → data/items/YYYY-MM.jsonl.
-// Summaries are a later step; this run decides which items are worth summarizing.
-import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
-import { profile, sources } from "../readery.config.ts";
+// Hourly collector, shared by every reader: sources → canonical items → dedupe → data/items/YYYY-MM.jsonl.
+// Whether an item is worth a reader's time is judge.ts's call, per reader.
+import { sources } from "../readery.config.ts";
 import { canonical, itemId } from "./lib/canonical.ts";
-import { JUNK, itemState, keywordHit, relevanceScore, route, type Route } from "./lib/llm/judgments.ts";
-import { judge } from "./lib/llm/typesafe.ts";
 import { fetchSource, geekNewsTarget } from "./lib/sources.ts";
+import { loadItems, monthOf, saveItems, type Item } from "./lib/store.ts";
 
-export type Item = {
-  id: string;
-  url: string;
-  title: string;
-  description?: string;
-  site: string;
-  lang: "ko" | "en";
-  via: Record<string, string>; // source id → where it was seen; two or more keys = "N곳에서 화제"
-  library?: string; // a release, blog post or new API page of a tool the user works with
-  publishedAt?: string;
-  collectedAt: string;
-  judgment: { by: "jev" | "keyword" | "subscribed"; route: Route; model?: string; relevance?: Record<string, number>; junk?: number };
-};
-
-const DIR = "data/items";
 const WINDOW = 7 * 86_400_000; // an older post seen for the first time is history, not news
-const monthOf = (it: Item) => it.collectedAt.slice(0, 7);
 const hangul = (s: string) => (s.match(/[가-힣]/g)?.length ?? 0) / Math.max(1, s.replace(/\s/g, "").length);
 
-async function pool<T>(xs: T[], n: number, fn: (x: T) => Promise<void>) {
-  let next = 0;
-  await Promise.all(Array.from({ length: n }, async () => { while (next < xs.length) await fn(xs[next++]); }));
-}
-
 // ---------- what we already have ----------
-mkdirSync(DIR, { recursive: true });
-const months = new Map<string, Item[]>();
-for (const f of readdirSync(DIR).filter((f) => f.endsWith(".jsonl")))
-  months.set(f.slice(0, -".jsonl".length), readFileSync(`${DIR}/${f}`, "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l)));
+const months = loadItems();
 const known = new Map<string, Item>();
 for (const items of months.values()) for (const it of items) known.set(it.id, it);
 const seenVia = new Set([...known.values()].flatMap((it) => Object.values(it.via)));
@@ -62,8 +36,8 @@ for (const r of raws) {
   if (old) {
     if (!old.via[r.source]) {
       old.via[r.source] = r.via ?? r.url;
-      // First seen on HN, now in a tool's own feed: it is that tool's news, whatever the filter said.
-      if (libraryOf[r.source] && !old.library) Object.assign(old, { library: libraryOf[r.source], judgment: { ...old.judgment, route: "pass" } });
+      // First seen on HN, now in a tool's own feed: it is that tool's news.
+      old.library ??= libraryOf[r.source];
       merged++;
       if (!fresh.includes(old)) dirty.add(monthOf(old));
     }
@@ -83,41 +57,10 @@ for (const r of raws) {
     library: libraryOf[r.source],
     publishedAt: validDate ? published.toISOString() : undefined,
     collectedAt: now.toISOString(),
-    judgment: { by: "keyword", route: "maybe" },
   };
   known.set(id, item);
   fresh.push(item);
 }
-
-// ---------- interest filter ----------
-// Jev judges each new item once (design S from the pilot: one relevance Score + junk Noul).
-// After 3 failures in a row, or past a 60 s budget, the rest fall back to keywords.
-const questions = { junk: JUNK, relevance: relevanceScore(profile, "en") };
-const nameOf = Object.fromEntries(sources.map((s) => [s.id, s.name]));
-const deadline = Date.now() + 60_000;
-let failures = 0;
-await pool(fresh, 3, async (it) => {
-  if (it.library) {
-    it.judgment = { by: "subscribed", route: "pass" };
-    return;
-  }
-  if (process.env.TYPESAFE_API_KEY && failures < 3 && Date.now() < deadline) {
-    try {
-      const state = itemState({ id: it.id, title: it.title, description: it.description, source: nameOf[Object.keys(it.via)[0]], site: it.site }, true);
-      const r = await judge(state, questions);
-      const relevance = r.answers.relevance.probabilities as Record<string, number>;
-      const junk = r.answers.junk.noul as number;
-      it.judgment = { by: "jev", model: r.model, relevance, junk, route: route(relevance["2"] ?? 0, junk) };
-      failures = 0;
-      return;
-    } catch (e) {
-      failures++;
-      console.warn(`jev failed on ${it.id}: ${String(e).slice(0, 120)}`);
-    }
-  }
-  // ponytail: keyword items stay keyword-judged; re-judge them with Jev on a later run if fallbacks become common.
-  it.judgment = { by: "keyword", route: keywordHit(profile, `${it.title} ${it.description ?? ""}`) ? "pass" : "maybe" };
-});
 
 // ---------- write ----------
 for (const it of fresh) {
@@ -126,11 +69,10 @@ for (const it of fresh) {
   months.get(m)!.push(it);
   dirty.add(m);
 }
-for (const m of dirty) writeFileSync(`${DIR}/${m}.jsonl`, `${months.get(m)!.map((it) => JSON.stringify(it)).join("\n")}\n`);
+saveItems(months, dirty);
 
-const count = (k: Route) => fresh.filter((it) => it.judgment.route === k).length;
 console.log(
   `sources ${sources.length - failed.length}/${sources.length} · raw ${raws.length} · new ${fresh.length} · merged ${merged}` +
-    ` · jev ${fresh.filter((it) => it.judgment.by === "jev").length} · library ${fresh.filter((it) => it.library).length} · pass ${count("pass")} / maybe ${count("maybe")} / drop ${count("drop")}`,
+    ` · library ${fresh.filter((it) => it.library).length}`,
 );
 if (failed.length) console.log(`failed: ${failed.join(", ")}`);

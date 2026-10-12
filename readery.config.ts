@@ -1,7 +1,6 @@
-// Readery settings. Scripts import these; nothing else holds them.
-import type { Profile } from "./scripts/lib/llm/judgments.ts";
+// The source catalog every reader draws from. Per-reader settings live in data/users/<id>/profile.json.
 
-// `library` marks a tool the user works with: its items skip the interest filter.
+// `library` names the tool a source reports on; readers who follow it get every item, unfiltered.
 export type Source = { id: string; name: string; library?: string } & (
   // pathPrefix keeps only links under that path (Vercel's feed mixes its changelog into the blog).
   | { kind: "feed"; url: string; pathPrefix?: string }
@@ -86,28 +85,3 @@ export const sources: Source[] = [
   { id: "go-blog", name: "Go", library: "go", kind: "feed", url: "https://go.dev/blog/feed.atom" },
   { id: "rust-blog", name: "Rust", library: "rust", kind: "feed", url: "https://blog.rust-lang.org/feed.xml" },
 ];
-
-// The interest filter judges items against the user's own five words (pilot 2026-09-28: KO 91%, EN 100%).
-export const profile: Profile = {
-  interests: [
-    { ko: "프론트엔드", en: "Frontend development." },
-    { ko: "백엔드", en: "Backend development." },
-    { ko: "시스템 디자인", en: "System design." },
-    { ko: "웹", en: "The web." },
-    { ko: "오픈소스", en: "Open source." },
-  ],
-  notInterested: [
-    { ko: "암호화폐 시세·투자", en: "Cryptocurrency prices and investing." },
-    { ko: "정치·연예 뉴스", en: "Politics and celebrity news." },
-  ],
-  // Fallback only, when Jev is unreachable.
-  keywords: [
-    "frontend", "front-end", "react", "next.js", "nextjs", "solid", "solidjs", "qwik", "astro", "vite", "svelte", "vue", "css",
-    "browser", "javascript", "typescript", "node.js", "nodejs", "deno", "bun", "wasm", "webassembly", "backend", "back-end",
-    "server", "api", "database", "postgres", "postgresql", "mysql", "sqlite", "redis", "kafka", "queue", "cache", "kubernetes",
-    "k8s", "docker", "infrastructure", "ci", "deploy", "golang", "go 1.", "rust", "architecture", "system design", "scalability",
-    "distributed", "microservice", "postmortem", "incident", "http", "web", "website", "self-host", "self-hosting",
-    "open source", "open-source", "oss", "github", "git",
-    "프론트엔드", "백엔드", "서버", "데이터베이스", "아키텍처", "설계", "인프라", "배포", "웹", "브라우저", "오픈소스", "대규모", "트래픽",
-  ],
-};
