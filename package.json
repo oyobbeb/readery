@@ -6,14 +6,18 @@
     "node": ">=24.12"
   },
   "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
     "collect": "node --env-file-if-exists=.env scripts/collect.ts",
     "judge": "node --env-file-if-exists=.env scripts/judge.ts",
-    "test": "node --test scripts/lib/*.test.ts",
+    "test": "node --test scripts/lib/*.test.ts src/*.test.ts",
     "pilot:sample": "node --env-file=.env scripts/pilot/sample.ts",
     "pilot:eval": "node --env-file=.env scripts/pilot/eval.ts"
   },
   "dependencies": {
     "@typesafe-ai/sdk": "0.6.0",
+    "astro": "7.3.8",
     "feedsmith": "2.9.6",
     "normalize-url": "9.0.1"
   }

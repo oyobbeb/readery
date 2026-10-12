@@ -1,0 +1,294 @@
+---
+import { Font } from "astro:assets";
+import Entry from "../components/Entry.astro";
+import ToolRow from "../components/ToolRow.astro";
+import { loadDigest } from "../digest.ts";
+
+const { updatedAt, tools, days, dropped, interests } = loadDigest("me");
+
+const dayName = new Intl.DateTimeFormat("ko-KR", { month: "long", day: "numeric", weekday: "short", timeZone: "UTC" });
+const stamp = new Intl.DateTimeFormat("ko-KR", { month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: "Asia/Seoul" });
+---
+
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Readery</title>
+    <meta name="description" content="관심사로 걸러 모은 오늘의 기술 글" />
+    <meta name="theme-color" content="#f5f3ef" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <Font cssVariable="--font-sans" />
+    <Font cssVariable="--font-serif" preload />
+    <Font cssVariable="--font-serif-ko" />
+    <Font cssVariable="--font-mono" />
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="wrap">
+        <h1 class="wordmark">Readery</h1>
+        {updatedAt && <p class="stamp num"><time datetime={updatedAt}>{stamp.format(new Date(updatedAt))}</time> 수집</p>}
+      </div>
+    </header>
+
+    {tools.top.length > 0 && (
+      <section class="tools" aria-labelledby="tools-title">
+        <div class="wrap">
+          <h2 class="tools-title" id="tools-title">도구 소식</h2>
+          <ul class="tool-list">{tools.top.map((t) => <ToolRow news={t} />)}</ul>
+          {tools.more.length > 0 && (
+            <details class="fold">
+              <summary><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5" /></svg>도구 소식 {tools.more.length}개 더</summary>
+              <ul class="tool-list">{tools.more.map((t) => <ToolRow news={t} />)}</ul>
+            </details>
+          )}
+        </div>
+      </section>
+    )}
+
+    <main class="wrap">
+      {days.map((d) => (
+        <section class="day" aria-labelledby={`day-${d.date}`}>
+          <h2 class="day-title" id={`day-${d.date}`}>
+            <time datetime={d.date}>{dayName.format(new Date(d.date))}</time>
+            <span class="day-count num">{d.pass.length}개</span>
+          </h2>
+          {d.pass.length > 0 ? (
+            <ol class="entries">{d.pass.map((e) => <Entry entry={e} />)}</ol>
+          ) : (
+            <p class="quiet">이날은 관심사에 맞는 글이 없었어요.</p>
+          )}
+          {d.maybe.length > 0 && (
+            <details class="fold maybe">
+              <summary><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5" /></svg>애매한 글 {d.maybe.length}개</summary>
+              <ol class="entries compact">{d.maybe.map((e) => <Entry entry={e} />)}</ol>
+            </details>
+          )}
+        </section>
+      ))}
+
+      {days.length === 0 && (
+        <p class="quiet">아직 판정한 글이 없어요. <code>npm run collect</code>와 <code>npm run judge</code>를 돌리면 채워져요.</p>
+      )}
+    </main>
+
+    <footer class="colophon wrap">
+      <p>{interests.join(" · ")}에 맞는 글만 골랐어요. 이 {days.length}일 동안 관심 밖으로 본 글 {dropped}개는 숨겼어요.</p>
+      <p>모든 기록은 <a href="https://github.com/oyobbeb/readery">GitHub 저장소</a>에 있어요.</p>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --ground: #f5f3ef;
+    --band: #f5e6dc;
+    --ink: #1a1916;
+    --ink-2: #5c594f;
+    --ink-3: #726e65;
+    --line: #e2ddd2;
+    --line-2: #cfc8b8;
+    --accent: #9a4a1f;
+    --serif: var(--font-serif), var(--font-serif-ko);
+    --num: var(--font-mono), var(--font-sans);
+    --margin: 3rem;
+    --edge: 0.75rem;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #14130f;
+      --band: #2a1f17;
+      --ink: #ede9e0;
+      --ink-2: #b4afa2;
+      --ink-3: #8a8578;
+      --line: #2c2a24;
+      --line-2: #403d34;
+      --accent: #e8996b;
+      color-scheme: dark;
+    }
+  }
+  @media (min-width: 48rem) {
+    :root { --margin: 5rem; --edge: 2rem; }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scrollbar-color: color-mix(in srgb, var(--ink-3) 55%, var(--ground)) var(--ground);
+  }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font: 400 1rem/1.6 var(--font-sans);
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  ::selection { background: var(--band); color: var(--ink); }
+  a { color: inherit; text-decoration: none; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+  a:hover { text-decoration-line: underline; text-decoration-color: var(--accent); }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  code { font-family: var(--num); font-size: 0.875em; }
+  .num { font-family: var(--num); font-variant-numeric: tabular-nums; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  .wrap {
+    max-width: 46rem;
+    margin-inline: auto;
+    padding-inline: max(var(--edge), env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right), var(--edge));
+  }
+
+  /* The margin column: dates in the tool band, how many places an item was seen in the day lists. */
+  .margin {
+    color: var(--ink-2);
+    font-size: 0.75rem;
+    text-align: right;
+    padding-right: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .masthead .wrap {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    padding-bottom: 1rem;
+  }
+  .wordmark { margin: 0; font: 700 1.625rem/1 var(--serif); letter-spacing: -0.015em; }
+  .stamp { margin: 0; font-size: 0.75rem; color: var(--ink-3); }
+
+  .tools { background: var(--band); padding-block: 0.875rem 0.5rem; }
+  .tools-title {
+    margin: 0;
+    padding: 0 0 0.375rem var(--margin);
+    color: var(--accent);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .tool-list { list-style: none; margin: 0; padding: 0; }
+  .tool {
+    display: grid;
+    grid-template-columns: var(--margin) minmax(0, 1fr) auto;
+    align-items: baseline;
+    padding-block: 0.375rem;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+  .tool-link { color: var(--ink-2); }
+  .tool-link:visited .tool-name { color: var(--ink-2); }
+  .tool-name { color: var(--ink); font-weight: 600; }
+  .tool-kind { color: var(--ink-2); font-size: 0.75rem; white-space: nowrap; padding-left: 0.75rem; }
+
+  .day { padding-top: 1.75rem; }
+  .day-title {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 0.625rem;
+    margin: 0;
+    padding: 0.625rem 0 0.625rem var(--margin);
+    background: var(--ground);
+    border-bottom: 1px solid var(--line);
+    font: 600 1.25rem/1.3 var(--serif);
+    letter-spacing: -0.01em;
+  }
+  .day-count { color: var(--ink-3); font-size: 0.75rem; font-weight: 400; letter-spacing: 0; }
+
+  .entries { list-style: none; margin: 0; padding: 0; }
+  .entry { display: grid; grid-template-columns: var(--margin) minmax(0, 1fr); align-items: baseline; }
+  .entry-body { padding-block: 0.875rem; min-width: 0; }
+  .entry + .entry .entry-body { border-top: 1px solid var(--line); }
+
+  /* Heat: seen in three or more places reads louder than two. */
+  .places { color: var(--accent); font-weight: 600; }
+  .places .n { font: 600 1.375rem/1 var(--serif); margin-right: 0.0625rem; }
+  .places.hot .n { font-size: 1.875rem; font-weight: 700; }
+
+  .entry-title {
+    display: block;
+    font: 600 1.0625rem/1.45 var(--serif);
+    letter-spacing: -0.005em;
+    text-wrap: pretty;
+  }
+  .entry-title:visited { color: var(--ink-2); }
+
+  .entry-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.375rem;
+    margin: 0.5rem 0 0;
+    color: var(--ink-3);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+  .site { margin-right: 0.125rem; }
+  /* A discussion thread: a tappable label, at least 24px tall. */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.5rem;
+    padding: 0 0.5rem;
+    border: 1px solid var(--line-2);
+    border-radius: 4px;
+    color: var(--ink-2);
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--ink); text-decoration: none; }
+  .plain { white-space: nowrap; }
+  .plain::before { content: "·"; margin-right: 0.375rem; }
+
+  .compact .entry-body { padding-block: 0.625rem; }
+  .compact .entry-title { font-size: 0.9375rem; color: var(--ink-2); }
+  .compact .entry-title:visited { color: var(--ink-3); }
+  .compact .entry-meta { margin-top: 0.25rem; }
+
+  .fold summary {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 2.75rem;
+    padding-left: var(--margin);
+    color: var(--ink-2);
+    font-size: 0.875rem;
+    font-weight: 600;
+    list-style: none;
+    cursor: pointer;
+  }
+  .fold summary::-webkit-details-marker { display: none; }
+  .fold summary:hover { color: var(--ink); }
+  .maybe { border-top: 1px solid var(--line); }
+  .chev { width: 0.75rem; height: 0.75rem; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: rotate 200ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .fold[open] .chev { rotate: 90deg; }
+  .fold::details-content {
+    opacity: 0;
+    transition: opacity 200ms cubic-bezier(0.2, 0.8, 0.2, 1), content-visibility 200ms allow-discrete;
+  }
+  .fold[open]::details-content { opacity: 1; }
+
+  .quiet { margin: 0; padding: 1rem 0 1rem var(--margin); color: var(--ink-2); font-size: 0.875rem; }
+
+  .colophon {
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    padding-bottom: max(3rem, env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line);
+    color: var(--ink-3);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+  .colophon p { margin: 0 0 0.375rem var(--margin); max-width: 36rem; }
+  .colophon a { color: var(--ink-2); text-decoration-line: underline; text-decoration-color: var(--line-2); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chev, .fold::details-content { transition: none; }
+  }
+</style>
